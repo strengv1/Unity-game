@@ -2,30 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class playerMovement : MonoBehaviour
 {
-    public Rigidbody rb;
+    public LayerMask movementMask;
+    Camera cam;
 
-    public float movementSpeed = 1f;
-    
-    // Update is called once per frame
-    void FixedUpdate()
+    void Start()
     {
-        if ( Input.GetKey("w") )
+        cam = Camera.main;
+    }
+
+    void Update()
+    {
+        if ( Input.GetMouseButtonDown(0) )
         {
-            transform.Translate(0f, 0f, movementSpeed * Time.deltaTime);
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if( Physics.Raycast(ray, out hit, 100, movementMask)) // ray, "out hit", range?, mask
+            {
+                Debug.Log("We hit" + hit.collider.name + " " + hit.point);
+                // Move our player to what we hit
+
+                //Stop focusing 
+            }
         }
-        if ( Input.GetKey("a") )
-        {
-            transform.Translate(-movementSpeed * Time.deltaTime, 0f, 0f);
-        }
-        if (Input.GetKey("s"))
-        {
-            transform.Translate(0f, 0f, -movementSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey("d"))
-        {
-            transform.Translate(movementSpeed * Time.deltaTime, 0f, 0f);
-        } 
     }
 }
