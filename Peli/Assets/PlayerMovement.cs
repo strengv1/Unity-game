@@ -23,7 +23,7 @@ public class playerMovement : MonoBehaviour
     {
         if ( Input.GetMouseButtonDown(0) )
         {               
-            foxAnim.SetBool("walking", true);
+            //foxAnim.SetBool("walking", true);
 
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -34,8 +34,9 @@ public class playerMovement : MonoBehaviour
             }
         }
         
-        if(!agent.hasPath)
-        {
+        if(agent.hasPath) {
+            foxAnim.SetBool("walking", true);
+        } else { 
             foxAnim.SetBool("walking", false);
         }
 
