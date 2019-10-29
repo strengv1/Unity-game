@@ -9,7 +9,6 @@ public class playerMovement : MonoBehaviour
 {
     public Animator foxAnim;
     public LayerMask movementMask;
-    public Rigidbody rb;
     public float jumpPower;
     Camera cam;
     NavMeshAgent agent;
@@ -19,7 +18,6 @@ public class playerMovement : MonoBehaviour
         foxAnim = GetComponentInChildren<Animator>();
         cam = Camera.main;
         agent = GetComponent<NavMeshAgent>();
-        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -28,12 +26,13 @@ public class playerMovement : MonoBehaviour
         if ( Input.GetKeyDown( KeyCode.Space )) {
             jump();
         }
-        // Read the location of the mouse when clicking on "ground" and move the foxy there.
-        if ( Input.GetMouseButtonDown(0) )
-        {               
+
+        // Right mouse button clicked
+        if ( Input.GetMouseButtonDown(1) )
+        {
+            // Read the location of the mouse when clicking on "ground" and move the foxy there.
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-
             if( Physics.Raycast(ray, out hit, 100, movementMask)) // ray, "out hit", range?, mask
             {
                 MoveToPoint(hit.point);
@@ -56,6 +55,6 @@ public class playerMovement : MonoBehaviour
     public void jump()
     {
         Debug.Log("jump");
-        rb.AddForce(0f, jumpPower, 0f);
+
     }
 }
